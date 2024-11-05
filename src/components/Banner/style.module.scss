@@ -1,0 +1,29 @@
+@import '@style/mixin.module.scss';
+@import '@style/variable.module.scss';
+
+.container {
+    @include flex_box_custom (center, center, 0);
+    background-image: url(../../assets/banner/banner.jpeg);
+    min-height: 750px;
+    background-size: cover;
+    background-position: center
+}
+
+.content {
+    @include flex_box_custom (center, center, 10px);
+    flex-direction: column;
+}
+
+.title {
+    font-size: 42px;
+    font-weight: 400;
+    color: $four_color;
+    margin: 15px;
+}
+
+.des  {
+    color: $thr_color;
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
