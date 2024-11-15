@@ -8,11 +8,13 @@ import Info from "@components/Info/Info";
 import HeadingListProduct from "@components/HeadingListProduct/HeadingListProduct";
 import PopularProduct from "@components/PopularProduct/Popularproduct";
 import { getProducts } from "@/apis/productsService";
+import SaleHomePage from "@components/SaleHomePage/SaleHomePage";
 
 const HomePage = () => {
   const { container } = style;
 
   const [listProduct, setListProduct] = useState([]);
+
   useEffect(() => {
     getProducts().then((res) => {
       setListProduct(res.contents);
@@ -28,11 +30,8 @@ const HomePage = () => {
         <AdvanceHealing />
         <HeadingListProduct data={listProduct.slice(0, 2)} />
         <PopularProduct data={listProduct.slice(2, 10)} />
-        <div
-          style={{
-            height: 250,
-          }}
-        ></div>
+        <SaleHomePage />
+        <Footer />
       </div>
     </div>
   );

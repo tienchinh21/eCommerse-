@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.scss";
 import logo from "../../assets/logo/LogoShop.png";
 import cartIcon from "../../assets/icon/svgs/cart.svg";
@@ -7,6 +7,8 @@ import heartIcon from "../../assets/icon/svgs/hearticon.svg";
 import BoxIcon from "./BoxIcon/BoxIcon";
 import { DataBoxIcon, DataMenu } from "./constants";
 import Menu from "./Menu/Menu";
+import useScrollHandling from "@/hooks/useScrollHandling";
+import classNames from "classnames";
 
 const Header = () => {
   const {
@@ -15,10 +17,23 @@ const Header = () => {
     containerHeader,
     containerBox,
     container,
+    fixedHeader,
+    topHeader,
   } = style;
 
+  const { scrollPosition } = useScrollHandling();
+  const [fixedPosition, setFixedPosition] = useState(false);
+
+  useEffect(() => {
+    setFixedPosition(scrollPosition > 100);
+  }, [scrollPosition]);
+
   return (
-    <div className={container}>
+    <div
+      className={classNames(container, topHeader, {
+        [fixedHeader]: fixedPosition,
+      })}
+    >
       <div className={containerHeader}>
         <div className={containerBox}>
           <div className={containerBoxIcon}>

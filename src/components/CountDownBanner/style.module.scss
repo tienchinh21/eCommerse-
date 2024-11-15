@@ -6,14 +6,15 @@
     width: calc(100%/2);
     height: 409px;
     background-size: cover;
+
+    .containerTimer {
+        @include flex_box_custom(center, center, 10px);
+        margin-top: 150px;
+    }
+
+    .title {
+        font-size: 28px;
+        color: $four_color;
+    }
 }
 
-.containerTimer {
-    @include flex_box_custom(center, center, 10px);
-    margin-top: 150px;
-}
-
-.title {
-    font-size: 28px;
-    color: $four_color;
-}
