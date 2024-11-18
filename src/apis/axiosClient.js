@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+
 
 const axiosClient = axios.create({
     baseURL: 'https://be-project-reactjs.onrender.com/api/v1',
@@ -7,5 +9,34 @@ const axiosClient = axios.create({
         "Content-Type": 'application/json'
     }
 });
+
+axiosClient.interceptors.request.use(async (config) => {
+    const token = Cookies.get('token');
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config;
+}, (error) => Promise.reject(error));
+
+axiosClient.interceptors.response.use((response) => {
+    return response;
+}, async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        const refreshToken = Cookies.get('refreshToken');
+        if (!refreshToken) return Promise.reject(error);
+        try {
+            const res = await axiosClient.post('/refresh-token', { token: refreshToken });
+            const newAccessToken = res.data.accessToken;
+            Cookies.set('token', newAccessToken);
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            return axiosClient(originalRequest);
+        } catch (err) {
+            Cookies.remove('token');
+            Cookies.remove('refreshToken');
+            return Promise.reject(err);
+        }
+    }
+});
+
 
 export default axiosClient;

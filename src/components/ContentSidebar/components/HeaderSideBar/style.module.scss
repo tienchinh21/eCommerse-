@@ -1,0 +1,8 @@
+@import '../../../../assets/style/mixin.module.scss';
+@import '../../../../assets/style/variable.module.scss';
+
+.container {
+    @include flex_box_custom(center, center, 10px);
+    flex-direction: column;
+    text-transform: uppercase;
+}

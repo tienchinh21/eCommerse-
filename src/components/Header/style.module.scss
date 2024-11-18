@@ -15,7 +15,7 @@
     position: fixed;
     top: -83px;
     transform: translateY(83px);
-    transition: transform 700ms ease-in-out;
+    transition: transform 600ms ease-in-out;
     z-index: 99;
     background-color: #FFFFFFE6;
     box-shadow: 2px 0px 12px 0px rgba(0, 0, 0, 0.15);
@@ -32,6 +32,9 @@
 
 .containerBoxIcon {
     @include flex_box_custom(center, center, );
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .containerBox {

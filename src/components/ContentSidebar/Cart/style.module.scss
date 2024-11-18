@@ -1,0 +1,23 @@
+@import '@style/mixin.module.scss';
+@import '@style/variable.module.scss';
+
+.container {
+    @include flex_box_custom(space-between,space-between, 10px);
+    padding: 30px 20px 0 20px;
+    flex-direction: column;
+    padding: 30px 20px 0 20px;
+    height: 90vh;
+
+    .boxIcon {
+        @include flex_box_custom(center,center, 10px);
+        flex-direction: column;
+    }
+
+    .boxTotal {
+        p {
+            margin: 0
+        }
+        @include flex_box_custom(space-between, center, 0);
+    }
+
+}
