@@ -9,7 +9,9 @@ const login = async (data) => {
     return await axiosClient.post('/login', data);
 }
 
-// const getInfo = async () => {
-//     return await axiosClient.get('/user/info/a610d75d-a639-458b-9961-ed7d74180caa');
-// }
-export { register, login };
+const getInfo = async (userId) => {
+    return await axiosClient.get(`/user/info/${userId}`);
+}
+
+
+export { register, login, getInfo };
