@@ -1,24 +1,73 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import style from "./style.module.scss";
 import { RiCloseLine } from "react-icons/ri";
+import { removeCart } from "@/apis/cartService";
+import { SideBarContext } from "@/contexts/SideBar";
+import LoadingTextCommon from "@components/LoadingTextCommon/LoadingTextCommon";
 
-const ItemProduct = () => {
-  const { container, boxContent, title, price, boxClose, size } = style;
+const ItemProduct = ({
+  src,
+  nameProduct,
+  sizeProduct,
+  priceProduct,
+  sku,
+  quantity,
+  productId,
+  userId,
+}) => {
+  const {
+    container,
+    boxContent,
+    title,
+    price,
+    boxClose,
+    size,
+    overlayLoading,
+  } = style;
+  const { handleGetProductToCart } = useContext(SideBarContext);
+  const [isDelete, setIsDelete] = useState(false);
+
+  const handleRemoveProduct = () => {
+    console.log(userId, productId);
+    // const data = {
+    //   userId,
+    //   productId,
+    // };
+    setIsDelete(true);
+    removeCart({
+      userId,
+      productId,
+    })
+      .then((res) => {
+        console.log(res);
+        setIsDelete(false);
+        handleGetProductToCart({ userId, type: "cart" });
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsDelete(false);
+      });
+  };
+
   return (
     <div className={container}>
-      <img
-        src="https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.1-min.jpg"
-        alt=""
-      />
-      <div className={boxClose}>
+      <img src={src} alt="" />
+      <div onClick={handleRemoveProduct} className={boxClose}>
         <RiCloseLine style={{ color: "c1c1c1" }} />
       </div>
       <div className={boxContent}>
-        <div className={title}>title of prodcut</div>
-        <div className={size}>Size: M</div>
-        <div className={price}>$199.9</div>
-        <div className={price}>SKU: 12349</div>
+        <div className={title}>{nameProduct}</div>
+        <div className={size}>Size: {sizeProduct}</div>
+        <div className={price}>
+          {quantity} x ${priceProduct}
+        </div>
+        <div className={price}>SKU: {sku}</div>
       </div>
+      {isDelete && (
+        <div className={overlayLoading}>
+          <LoadingTextCommon />
+        </div>
+      )}
     </div>
   );
 };

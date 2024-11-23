@@ -5,6 +5,7 @@ import ProductItem from "@components/ProductItem/ProductItem";
 
 const PopularProduct = ({ data }) => {
   const { container } = style;
+  console.log(data);
 
   return (
     <MainLayout>
@@ -16,6 +17,7 @@ const PopularProduct = ({ data }) => {
             preSrc={item.images[1]}
             name={item.name}
             price={item.price}
+            details={item}
           />
         ))}
       </div>

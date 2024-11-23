@@ -18,6 +18,8 @@ const HeadingListProduct = ({ data }) => {
               preSrc={item.images[1]}
               name={item.name}
               price={item.price}
+              details={item}
+              isHomePage
             />
           ))}
         </div>

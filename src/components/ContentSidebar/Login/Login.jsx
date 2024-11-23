@@ -14,7 +14,7 @@ const Login = () => {
   const { container, title, checkBox, losePw } = style;
   const [isRegister, setIsRegister] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsOpen } = useContext(SideBarContext);
+  const { setIsOpen, handleGetProductToCart } = useContext(SideBarContext);
   const { userId, setUserId } = useContext(storeContext);
 
   const formik = useFormik({
@@ -62,6 +62,8 @@ const Login = () => {
             setIsLoading(false);
             setIsOpen(false);
             toast.success("Login Success");
+            console.log("User ID:", id);
+            handleGetProductToCart({ userId: id, type: "cart" });
           })
           .catch((err) => {
             console.error(err);
