@@ -21,7 +21,7 @@ const SideBar = () => {
     switch (type) {
       case "login":
         return <Login />;
-      case "compare":
+      case "register":
         return <Compare />;
       case "wishList":
         return <WishList />;

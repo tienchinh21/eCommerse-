@@ -1,0 +1,42 @@
+.cartItem {
+    .productInfo {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+      }
+
+      div {
+        p {
+          font-weight: bold;
+          margin: 0;
+        }
+
+        span {
+          font-size: 0.9em;
+          color: #666;
+        }
+      }
+    }
+
+    select {
+      padding: 5px;
+    }
+
+    .deleteButton {
+        background: none; /* Không có nền */
+        border: none; /* Xóa viền */
+        cursor: pointer; /* Con trỏ chuột thay đổi thành biểu tượng tay khi hover */
+        font-size: 16px; /* Kích thước icon */
+        color: #ff0000; /* Màu đỏ để biểu thị xóa */
+        transition: transform 0.2s ease, color 0.2s ease;
+
+        &:hover {
+          color: #cc0000; /* Màu đỏ sậm hơn khi hover */
+          transform: scale(1.1); /* Tăng kích thước icon một chút khi hover */
+        }
+      }
+  }

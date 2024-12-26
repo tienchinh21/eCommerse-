@@ -64,3 +64,8 @@
         }
     }
 }
+
+
+.containerContent {
+    @include flex_box_custom(center, center, 0);
+}

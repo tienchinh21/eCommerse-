@@ -1,0 +1,61 @@
+@import '@style/mixin.module.scss';
+@import '@style/variable.module.scss';
+
+.shoppingCart {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    table {
+        width: 100%;
+        border-collapse: collapse; /* Đảm bảo các đường viền không bị chồng chéo */
+        text-align: left; /* Căn trái nội dung */
+      }
+
+      th, td {
+        padding: 16px; /* Tạo khoảng cách đều trong các ô */
+        border: none; /* Xóa các đường viền bên trong */
+      }
+
+      thead tr {
+        border-bottom: 1px solid $secondary_color; /* Đường solid dưới hàng tiêu đề */
+      }
+
+      tbody tr:last-child {
+        border-bottom: 1px solid $secondary_color; /* Đường solid dưới cùng của bảng */
+      }
+
+      td:nth-child(2) { /* Chỉ định cột chứa icon thùng rác */
+        width: 50px; /* Đảm bảo chiều rộng cố định cho cột icon */
+      }
+
+
+    .cartFooter {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      .coupon {
+        display: flex;
+
+        input {
+          padding: 5px;
+          margin-right: 10px;
+        }
+
+        button {
+          padding: 5px 10px;
+          background-color: #000;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+        }
+      }
+
+      .clearCart {
+        padding: 5px 15px;
+        background-color: #fff;
+        border: 1px solid #000;
+        cursor: pointer;
+      }
+    }
+  }
