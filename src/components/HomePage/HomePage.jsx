@@ -7,6 +7,7 @@ import HeadingListProducts from '@components/HeadingListProduct/HeadingListProdu
 import Info from '@components/Info/Info';
 import PopularProduct from '@components/PopularProduct/PopularProduct';
 import SaleHomepage from '@components/SaleHomepage/SaleHomepage';
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 function HomePage() {
