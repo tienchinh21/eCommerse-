@@ -41,6 +41,9 @@ importers:
       react-toastify:
         specifier: ^10.0.6
         version: 10.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      simple-image-magnifier:
+        specifier: ^1.0.10
+        version: 1.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       slick-carousel:
         specifier: ^1.8.1
         version: 1.8.1(jquery@3.7.1)
@@ -649,6 +652,12 @@ packages:
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
+
+  simple-image-magnifier@1.0.10:
+    resolution: {integrity: sha512-IIGpMIsDqidpVyrYA7G8v+xzGxjwmku2XGjSwNZtowYcZvtKlJjDBd8okRYDE/bWxuiT18NU8/uLUaaMYeLyHA==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
 
   slick-carousel@1.8.1:
     resolution: {integrity: sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA==}
@@ -1270,6 +1279,11 @@ snapshots:
       loose-envify: 1.4.0
 
   semver@6.3.1: {}
+
+  simple-image-magnifier@1.0.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   slick-carousel@1.8.1(jquery@3.7.1):
     dependencies:
