@@ -20,7 +20,9 @@ function InputCustom({
             {label}
           </option>
           {dataOptions.map((item) => (
-            <option key={item.value}>{item.label}</option>
+            <option key={item.value} value={item.value}>
+              {item.label}
+            </option>
           ))}
         </select>
       );

@@ -2,6 +2,11 @@ import InputCustom from '@components/InputCommon2/Input';
 import { useForm } from 'react-hook-form';
 import styles from './Styles.module.scss';
 import cls from 'classnames';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+
+const CN_BASE = 'https://countriesnow.space/api/v0.1';
 
 function Checkout() {
   const dataOptions = [
@@ -13,13 +18,74 @@ function Checkout() {
   const { container, title, coupon, leftBody, rightBody, row, row2Column } =
     styles;
 
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [states, setStates] = useState([]);
+
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm();
-  console.log(errors);
+
+  useEffect(() => {
+    axios.get(`${CN_BASE}/countries/iso`).then((res) =>
+      setCountries(
+        res.data.data.map((c) => ({
+          value: c.name,
+          label: c.name,
+        }))
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!watch('country')) return;
+
+    if (watch('country') === 'Vietnam' && !localStorage.getItem('listCities')) {
+      axios.get('https://provinces.open-api.vn/api/?depth=2').then((res) => {
+        localStorage.setItem('listCities', JSON.stringify(res.data));
+
+        setCities(
+          res.data.data.map((item) => ({
+            label: item.name,
+            value: item.codename,
+          }))
+        );
+      });
+
+      return;
+    }
+
+    if (localStorage.getItem('listCities')) {
+      const data = JSON.parse(localStorage.getItem('listCities'));
+      setCities(
+        data.map((item) => ({
+          label: item.name,
+          value: item.codename,
+        }))
+      );
+    }
+  }, [watch('country')]);
+
+  useEffect(() => {
+    if (!watch('cities')) return;
+
+    if (localStorage.getItem('listCities')) {
+      const data = JSON.parse(localStorage.getItem('listCities'));
+      const statesCustom = data
+        .find((item) => item.codename === watch('cities'))
+        .districts.map((item) => ({
+          label: item.name,
+          value: item.codename,
+        }));
+
+      setStates(statesCustom);
+    }
+  }, [watch('cities')]);
+
+  console.log(cities);
 
   return (
     <div className={container}>
@@ -63,7 +129,7 @@ function Checkout() {
           <div className={row}>
             <InputCustom
               label={'Country / Region'}
-              dataOptions={dataOptions}
+              dataOptions={countries}
               isRequired
               register={register('country', {
                 required: true,
@@ -94,9 +160,9 @@ function Checkout() {
           <div className={row}>
             <InputCustom
               label={'Town / City'}
-              type={'text'}
+              dataOptions={cities}
               isRequired
-              register={register('city', {
+              register={register('cities', {
                 required: true,
               })}
             />
@@ -105,7 +171,7 @@ function Checkout() {
           <div className={row}>
             <InputCustom
               label={'State'}
-              dataOptions={dataOptions}
+              dataOptions={states}
               isRequired
               register={register('state', {
                 required: true,
