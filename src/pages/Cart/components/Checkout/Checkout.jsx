@@ -5,6 +5,8 @@ import cls from 'classnames';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import RightBody from '@/pages/Cart/components/Checkout/RightBody';
+import { useRef } from 'react';
 
 const CN_BASE = 'https://countriesnow.space/api/v0.1';
 
@@ -28,6 +30,15 @@ function Checkout() {
     watch,
     formState: { errors },
   } = useForm();
+  const formRef = useRef();
+
+  console.log(formRef);
+
+  console.log(errors);
+
+  const handleExternalSubmit = () => {
+    formRef.current.requestSubmit(); // hoặc formRef.current.dispatchEvent(new Event('submit'))
+  };
 
   useEffect(() => {
     axios.get(`${CN_BASE}/countries/iso`).then((res) =>
@@ -85,8 +96,6 @@ function Checkout() {
     }
   }, [watch('cities')]);
 
-  console.log(cities);
-
   return (
     <div className={container}>
       <div className={leftBody}>
@@ -96,7 +105,10 @@ function Checkout() {
 
         <p className={title}>BILLING DETAILS</p>
 
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit((data) => console.log(data))}
+        >
           <div className={cls(row, row2Column)}>
             <InputCustom
               label={'First Name'}
@@ -212,11 +224,11 @@ function Checkout() {
             />
           </div>
 
-          <button type="submit">Submit</button>
+          {/* <button type="submit">Submit</button> */}
         </form>
       </div>
 
-      <div className={rightBody}></div>
+      <RightBody handleExternalSubmit={handleExternalSubmit} />
     </div>
   );
 }
