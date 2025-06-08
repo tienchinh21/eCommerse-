@@ -7,15 +7,23 @@ function InputCustom({
   isRequired = false,
   register,
   isShowlabel = true,
+  isError = false,
 }) {
-  const { container, labelCLS } = styles;
+  const { container, labelCLS, error } = styles;
 
   const renderInput = () => {
     if (type === 'text') {
-      return <input type="text" placeholder={label} {...register} />;
+      return (
+        <input
+          type="text"
+          className={isError ? error : ''}
+          placeholder={label}
+          {...register}
+        />
+      );
     } else {
       return (
-        <select {...register}>
+        <select {...register} className={isError ? error : ''}>
           <option value="" selected disabled hidden>
             {label}
           </option>
